@@ -10,6 +10,7 @@ import SwiftUI
 struct TabBarView: View {
     
     @Binding var selectedTab: TabItem
+    
     var tabs: [TabItem] = [.home, .library, .settings]
     var cornerRadius: CGFloat = 55
     var glassOpacity: Double = 0.7
@@ -24,33 +25,43 @@ struct TabBarView: View {
     @Environment(\.colorScheme) private var colorScheme
     
     private var adaptiveBackgroundColor: Color {
+        
         colorScheme == .dark ?
             Color.black.opacity(glassOpacity) :
             backgroundColor.opacity(glassOpacity)
+        
     }
     
     var body: some View {
+        
         VStack(spacing: 0) {
+            
             Spacer()
+            
             HStack(spacing: 0) {
+                
                 Spacer(minLength: 15)
+                
                 ForEach(tabs, id:\.rawValue) { tab in
+                    
                     TabButton(
                         tab: tab,
                         isSelected: selectedTab == tab,
                         selectedColor: selectedColor,
                         unselectedColor: unselectedColor,
-                        showLable: showTabLabels,
+                        showLabel: showTabLabels,
                         action: {
                             withAnimation(.easeInOut(duration: 0.2)) {
                                 selectedTab = tab
                             }
                         }
                     )
+                    
                     if tab != tabs.last {
                         Spacer()
                     }
                 }
+                
                 Spacer(minLength: 15)
             }
             .frame(height: height)
@@ -99,13 +110,25 @@ struct TabButton: View {
     let isSelected: Bool
     let selectedColor: Color
     let unselectedColor: Color
-    let showLable: Bool
+    let showLabel: Bool
     let action: () -> Void
     
     var body: some View {
         Button(action: action) {
             VStack(spacing: 4) {
                 Image(systemName: tab.iconName)
+                    .font(.system(size: 24))
+                    .symbolVariant(isSelected ? .fill : .none )
+                    .foregroundStyle(isSelected ? selectedColor: unselectedColor)
+                    .frame(height: 30)
+                    .animation(.easeInOut, value: isSelected)
+                if showLabel {
+                    Text(tab.title)
+                        .font(.system(size: 12, weight: isSelected ? .semibold : .regular))
+                        .foregroundStyle(isSelected ? selectedColor: unselectedColor)
+                        .animation(.easeInOut, value: isSelected)
+                    
+                }
             }
             .frame(maxWidth: .infinity)
             .contentShape(Rectangle())
@@ -148,5 +171,19 @@ enum TabItem: String, CaseIterable {
     }
 
     
+}
+
+extension View {
+    func withTabBar(selectedTab: Binding<TabItem>, customization: (TabBarView) -> TabBarView = { $0 }) -> some View {
+        ZStack {
+            self
+            
+            VStack {
+                Spacer()
+                customization(TabBarView(selectedTab: selectedTab))
+                    .ignoresSafeArea(edges: .bottom)
+            }
+        }
+    }
 }
 
