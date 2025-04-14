@@ -56,6 +56,28 @@ struct TabBarView: View {
             .frame(height: height)
             .background(
                 ZStack {
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .fill(adaptiveBackgroundColor)
+                        .blur(radius: glassBlur)
+                    
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .fill(adaptiveBackgroundColor)
+                        .blur(radius: 0.7)
+                    
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .stroke (
+                            LinearGradient(
+                                colors: [
+                                    .white.opacity(colorScheme == .dark ? 0.1 : 0.3),
+                                    .clear,
+                                    .black.opacity(colorScheme == .dark ? 0.1 : 0.04)
+                                ],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ),
+                        lineWidth: 1
+                            
+                        )
                     
                 }
             )
@@ -67,9 +89,9 @@ struct TabBarView: View {
     }
 }
 
-//#Preview {
-//    TabBarView()
-//}
+#Preview {
+    TabBarView(selectedTab: .constant(.home))
+}
 
 struct TabButton: View {
     
@@ -83,7 +105,7 @@ struct TabButton: View {
     var body: some View {
         Button(action: action) {
             VStack(spacing: 4) {
-                
+                Image(systemName: tab.iconName)
             }
             .frame(maxWidth: .infinity)
             .contentShape(Rectangle())
