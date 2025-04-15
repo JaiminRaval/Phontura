@@ -8,6 +8,26 @@
 import SwiftUI
 
 struct HomeView: View {
+    
+    @State private var currentTab: TabItem = .home
+    
+    var body: some View {
+        ZStack {
+            
+            CoolGradientView()
+            
+            TabBarView(selectedTab: $currentTab, showTabLabels: false)
+        }
+    }
+}
+
+#Preview {
+    HomeView()
+}
+
+
+struct CoolGradientView: View {
+    
     var gradientColorArr: [Color] = [.blue, .purple, .pink, .orange]
     var animationDuration: Double = 8.0
     var blurRadius: CGFloat = 30
@@ -15,26 +35,20 @@ struct HomeView: View {
     @State private var isGradientAnimating: Bool = false
     
     var body: some View {
-        ZStack {
-            LinearGradient(colors: gradientColorArr,
-                           startPoint: isGradientAnimating ? .topLeading : .bottomTrailing,
-                           endPoint: isGradientAnimating ? .bottomTrailing : .topLeading
-            )
-            .blur(radius: blurRadius)
-            .ignoresSafeArea()
-            .onAppear {
-                withAnimation(
-                    Animation
+        LinearGradient(colors: gradientColorArr,
+                       startPoint: isGradientAnimating ? .topLeading : .bottomTrailing,
+                       endPoint: isGradientAnimating ? .bottomTrailing : .topLeading
+        )
+        .blur(radius: blurRadius)
+        .ignoresSafeArea()
+        .onAppear {
+            withAnimation(
+                Animation
                     .easeInOut(duration: animationDuration)
                     .repeatForever(autoreverses: true)) {
                         isGradientAnimating.toggle()
-                }
-               
-            }
+                    }
+            
         }
     }
-}
-
-#Preview {
-    HomeView()
 }
