@@ -52,3 +52,5 @@ struct CoolGradientView: View {
         }
     }
 }
+
+
