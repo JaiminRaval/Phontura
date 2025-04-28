@@ -15,7 +15,6 @@ struct GenImageView: View {
 
 
 struct CenteredHidableImageView: View {
-    // State to track whether the image is visible
     @State private var isImageVisible = true
     
     // You can customize these properties
@@ -24,12 +23,10 @@ struct CenteredHidableImageView: View {
     
     var body: some View {
         ZStack {
-            // Your background content here
             Color.gray.opacity(0.2)
                 .ignoresSafeArea()
             
             VStack {
-                // Button to toggle image visibility
                 Button(action: {
                     withAnimation(.easeInOut(duration: 0.3)) {
                         isImageVisible.toggle()
@@ -44,8 +41,6 @@ struct CenteredHidableImageView: View {
                 .padding(.top, 40)
                 
                 Spacer()
-                
-                // Centered image that can be hidden
                 if isImageVisible {
                     Image(imageName)
                         .resizable()
