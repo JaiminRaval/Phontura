@@ -17,6 +17,7 @@ struct HomeView: View {
             CoolGradientView()
             
             TabBarView(selectedTab: $currentTab, showTabLabels: false)
+            GenImageView()
         }
     }
 }
