@@ -13,7 +13,10 @@ struct UsrSettingsView: View {
             if #available(iOS 18.0, *) {
                 CoolMeshGradientView()
                 List {
-                    
+                    RoundedRectangle(cornerRadius: 14)
+                        .fill(.gray)
+                        .frame(height: 100)
+                        
                 }
             } else {
                 // Fallback on earlier versions
