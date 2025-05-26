@@ -124,3 +124,35 @@ struct OceanMeshGradientView: View {
         .ignoresSafeArea()
     }
 }
+
+@available(iOS 18.0, *)
+struct MyTempView: View {
+    var body: some View {
+            TabView {
+                    MesmerizingMeshView()
+                        .tabItem {
+                            Label("Mesmerizing", systemImage: "sparkles")
+                        }
+                
+                
+                CosmicMeshGradientView()
+                    .tabItem {
+                        Label("Cosmic", systemImage: "star.fill")
+                    }
+                
+                OceanMeshGradientView()
+                    .tabItem {
+                        Label("Ocean", systemImage: "drop.fill")
+                    }
+            }
+        }
+}
+
+
+#Preview {
+    if #available(iOS 18.0, *) {
+        MyTempView()
+    } else {
+        // Fallback on earlier versions
+    }
+}
