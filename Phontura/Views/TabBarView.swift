@@ -12,15 +12,15 @@ struct TabBarView: View {
     @Binding var selectedTab: TabItem
     
     var tabs: [TabItem] = [.home, .library, .settings]
-    var cornerRadius: CGFloat = 55
+    var cornerRadius: CGFloat = 55.0
     var glassOpacity: Double = 0.7
-    var glassBlur: CGFloat = 20
+    var glassBlur: CGFloat = 20.0
     var backgroundColor: Color = .white
     var selectedColor: Color = .blue
     var unselectedColor: Color = .gray
     var showTabLabels: Bool = true
-    var height: CGFloat = 80
-    var bottomPadding: CGFloat = 10
+    var height: CGFloat = 80.0
+    var bottomPadding: CGFloat = 10.0
     
     @Environment(\.colorScheme) private var colorScheme
     
