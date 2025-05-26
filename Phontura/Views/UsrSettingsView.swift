@@ -55,21 +55,7 @@ struct UsrSettingsView: View {
             .listStyle(InsetGroupedListStyle()) // Modern list style
         }
     }}
-//    var body: some View {
-//        ZStack {
-//            if #available(iOS 18.0, *) {
-//                CoolMeshGradientView()
-//                List {
-//                    RoundedRectangle(cornerRadius: 14)
-//                        .fill(.gray)
-//                        .frame(height: 100)
-//                        
-//                }
-//            } else {
-//                // Fallback on earlier versions
-//            }
-//        }
-//    }
+
 }
 
 struct AdvancedSettingsView: View {
