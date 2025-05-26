@@ -14,14 +14,20 @@ struct UsrSettingsView: View {
 
     let themes = ["Light", "Dark", "System"]
 
-    var body: some View {
+    var body: some View {ZStack{
+        
+        if #available(iOS 18.0, *) {
+            OceanMeshGradientView()
+        } else {
+            // Fallback on earlier versions
+        }
         NavigationView {
             Form {
                 Section(header: Text("General").foregroundColor(.gray)) {
                     Toggle("Enable Push Notifications", isOn: $enablePushNotifications)
                         .toggleStyle(SwitchToggleStyle(tint: .blue)) // Futuristic tint
                 }
-
+                
                 Section(header: Text("Appearance").foregroundColor(.gray)) {
                     Picker("Theme", selection: $selectedTheme) {
                         ForEach(themes, id: \.self) { theme in
@@ -29,7 +35,7 @@ struct UsrSettingsView: View {
                         }
                     }
                 }
-
+                
                 Section {
                     Button("Advanced Settings") {
                         showAdvancedSettings.toggle()
@@ -48,7 +54,7 @@ struct UsrSettingsView: View {
             )
             .listStyle(InsetGroupedListStyle()) // Modern list style
         }
-    }
+    }}
 //    var body: some View {
 //        ZStack {
 //            if #available(iOS 18.0, *) {
